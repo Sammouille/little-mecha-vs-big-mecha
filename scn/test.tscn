@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://csgqfku2jhrpl"]
+
+[ext_resource type="PackedScene" uid="uid://0ghtktg8jw85" path="res://scn/mech.tscn" id="1_3uadc"]
+[ext_resource type="PackedScene" uid="uid://c3lqwe0xw1wo0" path="res://scn/cityù.tscn" id="2_eabw5"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o0f2s"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_v34fs"]
+sky_material = SubResource("ProceduralSkyMaterial_o0f2s")
+
+[sub_resource type="Environment" id="Environment_kpy7d"]
+background_mode = 2
+sky = SubResource("Sky_v34fs")
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uj3h4"]
+size = Vector2(500, 500)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_274va"]
+size = Vector3(500, 10, 500)
+
+[node name="Node3D" type="Node3D" unique_id=469125942]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2102661517]
+environment = SubResource("Environment_kpy7d")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1555246193]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Mecha" parent="." unique_id=394259244 instance=ExtResource("1_3uadc")]
+
+[node name="Pivot" type="Node3D" parent="Mecha" unique_id=1058063228]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="Mecha/Pivot" unique_id=1067730422]
+transform = Transform3D(1, 0, 0, 0, 0.9931707, 0.116670735, 0, -0.116670735, 0.9931707, 0, 3.624, 5)
+
+[node name="Node3D" parent="." unique_id=610542542 instance=ExtResource("2_eabw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.818481, 0, -9.530464)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1196674767]
+mesh = SubResource("PlaneMesh_uj3h4")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=2020680055]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1043568113]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+shape = SubResource("BoxShape3D_274va")
